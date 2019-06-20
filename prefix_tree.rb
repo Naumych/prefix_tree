@@ -16,4 +16,8 @@ class Trie
 
   end
 
+  def list
+
+  end
+
 end

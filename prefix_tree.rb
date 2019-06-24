@@ -8,8 +8,12 @@ class Node
     @end_of_word = end_of_word
   end
 
-  def node_childs=(node_childs)
-    node_childs.push(node_child)
+  #def node_childs=(node_childs)
+  #  node_childs.push(node_child)
+  #end
+
+  def print_node
+    puts "Value of node #{node_value}. Childs of node: #{node_childs} "
   end
 end
 
@@ -17,12 +21,40 @@ class Trie
   #attr_accessor :trie
 
   def initialize()
-    @first_node_in_trie = Node.new(nil) #тут вторым ваще-то должна быть ссылка на нижнего
+    @root = Node.new(nil) #тут вторым ваще-то должна быть ссылка на нижнего
 
   end
 
-  def add(word)
-    root = first_node_in_trie
+  def add_word(word)
+    puts @root.inspect
+    base = @root #base это массив нодов какого-то хуя
+    letters = word.chars
+    letters.each do |letter|
+      #base = add_char(letter, base.node_childs)
+      puts base
+      puts letter
+    end
+
+    #base.end_of_word = true
+  end
+
+  def add_char(char, trie)
+    trie.find{ |n| n.node_value == char} || add_node(char, trie)
+  end
+
+  def add_node(char, trie)
+    trie.push(Node.new(char))
+    puts trie.inspect
+  end
+
+end
+
+node = Node.new("A",[1,2])
+node.print_node
+triee = Trie.new()
+triee.add_word("greeda")
+puts triee.
+=begin
     while i != word.length-1
     if root.node_childs.node_value.include?(word[0].to_s)
       word = word.slice(1..word.length-1) #если слово поместилось не полностью фиксить тут
@@ -32,7 +64,7 @@ class Trie
       root.node_value = word[0].to_s
       root.node_childs.push
       Node.new(word[0])
-
+=end
 
 
 
@@ -46,24 +78,3 @@ class Trie
 
 =end
 
-  end
-
-  def add_node(root, word)
-    while word.length-1
-      root.node_childs.push(Node.new(word[0], word[1])
-      word = word.slice(1..word.length-1)
-      add_node(???  word)
-    end
-  end
-
-  def includes?
-
-  end
-
-  def list
-
-  end
-
-
-
-end
